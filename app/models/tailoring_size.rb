@@ -1,0 +1,2 @@
+class TailoringSize < ApplicationRecord
+end

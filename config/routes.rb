@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :tailoring_sizes
   resources :listing_shipping_statuses
   resources :cart_listings
   resources :listing_tags

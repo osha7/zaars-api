@@ -1,0 +1,17 @@
+<%= form_with(model: tailoring_size) do |form| %>
+  <% if tailoring_size.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(tailoring_size.errors.count, "error") %> prohibited this tailoring_size from being saved:</h2>
+
+      <ul>
+        <% tailoring_size.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
