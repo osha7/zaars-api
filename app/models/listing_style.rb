@@ -1,0 +1,2 @@
+class ListingStyle < ApplicationRecord
+end

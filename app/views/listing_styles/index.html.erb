@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Styles</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @listing_styles.each do |listing_style| %>
+      <tr>
+        <td><%= link_to 'Show', listing_style %></td>
+        <td><%= link_to 'Edit', edit_listing_style_path(listing_style) %></td>
+        <td><%= link_to 'Destroy', listing_style, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Listing Style', new_listing_style_path %>

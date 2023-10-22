@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :listing_styles
   resources :styles
   resources :offers
   resources :follows
