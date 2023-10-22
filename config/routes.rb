@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :listing_tags
   resources :tags
   resources :listing_styles
   resources :styles
