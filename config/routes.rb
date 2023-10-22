@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :follows
   resources :reviews
   resources :listings
   resources :orders
