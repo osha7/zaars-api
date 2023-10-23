@@ -33,6 +33,8 @@ gem 'rack-cors'
 gem 'simple_token_authentication', '~> 1.0'
 gem "cloudinary"
 gem 'dotenv-rails', groups: [:development, :test]
+
+# to generate fake seed data:
 gem 'faker', :git => 'https://github.com/faker-ruby/faker.git', :branch => 'main'
 
 group :development, :test do
