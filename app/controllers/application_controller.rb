@@ -18,9 +18,9 @@ class ApplicationController < ActionController::Base
 
   # add the name of each column you want users to be able to modify to the respective array of symbols
   def configure_permitted_parameters
-    devise_parameter_sanitizer.permit(:sign_up, keys: [:username])
-    # devise_parameter_sanitizer.permit(:update, keys: [:private])
-    devise_parameter_sanitizer.permit(:account_update, keys: [:username, :email, :password, :first_name, :last_name, :street_address, :street_address_2, :city, :state, :zip, :country, :phone_number, :private, :facebook, :instagram, :twitter, :seller_account])
+    attributes = [:username, :email, :password, :first_name, :last_name, :street_address, :street_address_2, :city, :state, :zip, :country, :phone_number, :private, :facebook, :instagram, :twitter, :seller_account, :follows_count, :reviews_count, :stripe_account_id]
+    devise_parameter_sanitizer.permit(:sign_up, keys: attributes)
+    devise_parameter_sanitizer.permit(:account_update, keys: attributes)
   end
 
   def json_request?
