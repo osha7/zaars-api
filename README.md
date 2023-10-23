@@ -1,24 +1,14 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Install Required Gems
 
-Things you may want to cover:
+bundle install
+(or bin/setup)
 
-* Ruby version
+## Start Server
 
-* System dependencies
+rails s
+(or rails server)
+(or bin/server)
 
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+### Check notes.md for any notes on db commands
