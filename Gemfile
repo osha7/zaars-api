@@ -31,6 +31,10 @@ gem 'bootsnap', '>= 1.4.4', require: false
 gem 'stripe', '~> 9.3'
 gem 'rack-cors'
 gem 'simple_token_authentication', '~> 1.0'
+gem "cloudinary"
+gem 'dotenv-rails', groups: [:development, :test]
+gem 'faker', :git => 'https://github.com/faker-ruby/faker.git', :branch => 'main'
+
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
