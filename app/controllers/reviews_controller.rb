@@ -4,15 +4,18 @@ class ReviewsController < ApplicationController
   # GET /reviews or /reviews.json
   def index
     @reviews = Review.all
+    render json: @reviews
   end
 
   # GET /reviews/1 or /reviews/1.json
   def show
+    render json: @review
   end
 
   # GET /reviews/new
   def new
     @review = Review.new
+    render json: @review
   end
 
   # GET /reviews/1/edit
@@ -26,7 +29,7 @@ class ReviewsController < ApplicationController
     respond_to do |format|
       if @review.save
         format.html { redirect_to review_url(@review), notice: "Review was successfully created." }
-        format.json { render :show, status: :created, location: @review }
+        format.json { render json: @review, status: :created, location: @review }
       else
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @review.errors, status: :unprocessable_entity }
@@ -39,7 +42,7 @@ class ReviewsController < ApplicationController
     respond_to do |format|
       if @review.update(review_params)
         format.html { redirect_to review_url(@review), notice: "Review was successfully updated." }
-        format.json { render :show, status: :ok, location: @review }
+        format.json { render json: @review, status: :ok, location: @review }
       else
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @review.errors, status: :unprocessable_entity }
@@ -65,6 +68,6 @@ class ReviewsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def review_params
-      params.fetch(:review, {})
+      params.require(:review).permit(:write_up, :user_id, :store_id)
     end
 end

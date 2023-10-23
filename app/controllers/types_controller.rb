@@ -4,15 +4,18 @@ class TypesController < ApplicationController
   # GET /types or /types.json
   def index
     @types = Type.all
+    render json: @types
   end
 
   # GET /types/1 or /types/1.json
   def show
+    render json: @type
   end
 
   # GET /types/new
   def new
     @type = Type.new
+    render json: @type
   end
 
   # GET /types/1/edit
@@ -26,7 +29,7 @@ class TypesController < ApplicationController
     respond_to do |format|
       if @type.save
         format.html { redirect_to type_url(@type), notice: "Type was successfully created." }
-        format.json { render :show, status: :created, location: @type }
+        format.json { render json: @type, status: :created, location: @type }
       else
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @type.errors, status: :unprocessable_entity }
@@ -39,7 +42,7 @@ class TypesController < ApplicationController
     respond_to do |format|
       if @type.update(type_params)
         format.html { redirect_to type_url(@type), notice: "Type was successfully updated." }
-        format.json { render :show, status: :ok, location: @type }
+        format.json { render json: @type, status: :ok, location: @type }
       else
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @type.errors, status: :unprocessable_entity }

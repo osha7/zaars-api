@@ -4,15 +4,18 @@ class ListingStylesController < ApplicationController
   # GET /listing_styles or /listing_styles.json
   def index
     @listing_styles = ListingStyle.all
+    render json: @listing_styles
   end
 
   # GET /listing_styles/1 or /listing_styles/1.json
   def show
+    render json: @listing_style
   end
 
   # GET /listing_styles/new
   def new
     @listing_style = ListingStyle.new
+    render json: @listing_style
   end
 
   # GET /listing_styles/1/edit
@@ -26,7 +29,7 @@ class ListingStylesController < ApplicationController
     respond_to do |format|
       if @listing_style.save
         format.html { redirect_to listing_style_url(@listing_style), notice: "Listing style was successfully created." }
-        format.json { render :show, status: :created, location: @listing_style }
+        format.json { render json: @listing_style, status: :created, location: @listing_style }
       else
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @listing_style.errors, status: :unprocessable_entity }
@@ -39,7 +42,7 @@ class ListingStylesController < ApplicationController
     respond_to do |format|
       if @listing_style.update(listing_style_params)
         format.html { redirect_to listing_style_url(@listing_style), notice: "Listing style was successfully updated." }
-        format.json { render :show, status: :ok, location: @listing_style }
+        format.json { render json: @listing_style, status: :ok, location: @listing_style }
       else
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @listing_style.errors, status: :unprocessable_entity }
@@ -65,6 +68,6 @@ class ListingStylesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def listing_style_params
-      params.fetch(:listing_style, {})
+      params.require(:listing_style).permit(:style_id, :listing_id)
     end
 end

@@ -4,15 +4,18 @@ class ListingShippingStatusesController < ApplicationController
   # GET /listing_shipping_statuses or /listing_shipping_statuses.json
   def index
     @listing_shipping_statuses = ListingShippingStatus.all
+    render json: @listing_shipping_statuses
   end
 
   # GET /listing_shipping_statuses/1 or /listing_shipping_statuses/1.json
   def show
+    render json: @listing_shipping_status
   end
 
   # GET /listing_shipping_statuses/new
   def new
     @listing_shipping_status = ListingShippingStatus.new
+    render json: @listing_shipping_status
   end
 
   # GET /listing_shipping_statuses/1/edit
@@ -26,7 +29,7 @@ class ListingShippingStatusesController < ApplicationController
     respond_to do |format|
       if @listing_shipping_status.save
         format.html { redirect_to listing_shipping_status_url(@listing_shipping_status), notice: "Listing shipping status was successfully created." }
-        format.json { render :show, status: :created, location: @listing_shipping_status }
+        format.json { render json: @listing_shipping_status, status: :created, location: @listing_shipping_status }
       else
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @listing_shipping_status.errors, status: :unprocessable_entity }
@@ -39,7 +42,7 @@ class ListingShippingStatusesController < ApplicationController
     respond_to do |format|
       if @listing_shipping_status.update(listing_shipping_status_params)
         format.html { redirect_to listing_shipping_status_url(@listing_shipping_status), notice: "Listing shipping status was successfully updated." }
-        format.json { render :show, status: :ok, location: @listing_shipping_status }
+        format.json { render json: @listing_shipping_status, status: :ok, location: @listing_shipping_status }
       else
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @listing_shipping_status.errors, status: :unprocessable_entity }
@@ -65,6 +68,6 @@ class ListingShippingStatusesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def listing_shipping_status_params
-      params.fetch(:listing_shipping_status, {})
+      params.require(:listing_shipping_status).permit(:tracking_number, :shipping_status, :listing_id, :order_id)
     end
 end

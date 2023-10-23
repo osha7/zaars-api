@@ -4,15 +4,18 @@ class FollowsController < ApplicationController
   # GET /follows or /follows.json
   def index
     @follows = Follow.all
+    render json: @follows
   end
 
   # GET /follows/1 or /follows/1.json
   def show
+    render json: @follow
   end
 
   # GET /follows/new
   def new
     @follow = Follow.new
+    render json: @follow
   end
 
   # GET /follows/1/edit
@@ -26,7 +29,7 @@ class FollowsController < ApplicationController
     respond_to do |format|
       if @follow.save
         format.html { redirect_to follow_url(@follow), notice: "Follow was successfully created." }
-        format.json { render :show, status: :created, location: @follow }
+        format.json { render json: @follow, status: :created, location: @follow }
       else
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @follow.errors, status: :unprocessable_entity }
@@ -39,7 +42,7 @@ class FollowsController < ApplicationController
     respond_to do |format|
       if @follow.update(follow_params)
         format.html { redirect_to follow_url(@follow), notice: "Follow was successfully updated." }
-        format.json { render :show, status: :ok, location: @follow }
+        format.json { render json: @follow, status: :ok, location: @follow }
       else
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @follow.errors, status: :unprocessable_entity }
@@ -65,6 +68,6 @@ class FollowsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def follow_params
-      params.fetch(:follow, {})
+      params.require(:follow).permit(:user_id, :store_id)
     end
 end

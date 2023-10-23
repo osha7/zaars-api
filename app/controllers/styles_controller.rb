@@ -4,15 +4,18 @@ class StylesController < ApplicationController
   # GET /styles or /styles.json
   def index
     @styles = Style.all
+    render json: @styles
   end
 
   # GET /styles/1 or /styles/1.json
   def show
+    render json: @style
   end
 
   # GET /styles/new
   def new
     @style = Style.new
+    render json: @style
   end
 
   # GET /styles/1/edit
@@ -26,7 +29,7 @@ class StylesController < ApplicationController
     respond_to do |format|
       if @style.save
         format.html { redirect_to style_url(@style), notice: "Style was successfully created." }
-        format.json { render :show, status: :created, location: @style }
+        format.json { render json: @style, status: :created, location: @style }
       else
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @style.errors, status: :unprocessable_entity }
@@ -39,7 +42,7 @@ class StylesController < ApplicationController
     respond_to do |format|
       if @style.update(style_params)
         format.html { redirect_to style_url(@style), notice: "Style was successfully updated." }
-        format.json { render :show, status: :ok, location: @style }
+        format.json { render json: @style, status: :ok, location: @style }
       else
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @style.errors, status: :unprocessable_entity }
@@ -65,6 +68,6 @@ class StylesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def style_params
-      params.fetch(:style, {})
+      params.require(:style).permit(:title)
     end
 end

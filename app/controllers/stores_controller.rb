@@ -4,15 +4,18 @@ class StoresController < ApplicationController
   # GET /stores or /stores.json
   def index
     @stores = Store.all
+    render json: @stores
   end
 
   # GET /stores/1 or /stores/1.json
   def show
+    render json: @store
   end
 
   # GET /stores/new
   def new
     @store = Store.new
+    render json: @store
   end
 
   # GET /stores/1/edit
@@ -26,7 +29,7 @@ class StoresController < ApplicationController
     respond_to do |format|
       if @store.save
         format.html { redirect_to store_url(@store), notice: "Store was successfully created." }
-        format.json { render :show, status: :created, location: @store }
+        format.json { render json: @store, status: :created, location: @store }
       else
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @store.errors, status: :unprocessable_entity }
@@ -39,7 +42,7 @@ class StoresController < ApplicationController
     respond_to do |format|
       if @store.update(store_params)
         format.html { redirect_to store_url(@store), notice: "Store was successfully updated." }
-        format.json { render :show, status: :ok, location: @store }
+        format.json { render json: @store, status: :ok, location: @store }
       else
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @store.errors, status: :unprocessable_entity }
@@ -65,6 +68,6 @@ class StoresController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def store_params
-      params.fetch(:store, {})
+      params.require(:store).permit(:bio, :admin_name, :retailer, :user_id, :facebook, :instagram, :twitter, :follows_count, :reviews_count, :store_name)
     end
 end

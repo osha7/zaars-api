@@ -4,15 +4,18 @@ class CartListingsController < ApplicationController
   # GET /cart_listings or /cart_listings.json
   def index
     @cart_listings = CartListing.all
+    render json: @cart_listings
   end
 
   # GET /cart_listings/1 or /cart_listings/1.json
   def show
+    render json: @cart_listing
   end
 
   # GET /cart_listings/new
   def new
     @cart_listing = CartListing.new
+    render json: @cart_listing
   end
 
   # GET /cart_listings/1/edit
@@ -26,7 +29,7 @@ class CartListingsController < ApplicationController
     respond_to do |format|
       if @cart_listing.save
         format.html { redirect_to cart_listing_url(@cart_listing), notice: "Cart listing was successfully created." }
-        format.json { render :show, status: :created, location: @cart_listing }
+        format.json { render json: @cart_listing, status: :created, location: @cart_listing }
       else
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @cart_listing.errors, status: :unprocessable_entity }
@@ -39,7 +42,7 @@ class CartListingsController < ApplicationController
     respond_to do |format|
       if @cart_listing.update(cart_listing_params)
         format.html { redirect_to cart_listing_url(@cart_listing), notice: "Cart listing was successfully updated." }
-        format.json { render :show, status: :ok, location: @cart_listing }
+        format.json { render json: @cart_listing, status: :ok, location: @cart_listing }
       else
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @cart_listing.errors, status: :unprocessable_entity }
@@ -65,6 +68,6 @@ class CartListingsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def cart_listing_params
-      params.fetch(:cart_listing, {})
+      params.require(:cart_listing).permit(:user_id, :listing_id, :alt_user_id)
     end
 end

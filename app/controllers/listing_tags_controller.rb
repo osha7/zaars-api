@@ -4,15 +4,18 @@ class ListingTagsController < ApplicationController
   # GET /listing_tags or /listing_tags.json
   def index
     @listing_tags = ListingTag.all
+    render json: @listing_tags
   end
 
   # GET /listing_tags/1 or /listing_tags/1.json
   def show
+    render json: @listing_tag
   end
 
   # GET /listing_tags/new
   def new
     @listing_tag = ListingTag.new
+    render json: @listing_tag
   end
 
   # GET /listing_tags/1/edit
@@ -26,7 +29,7 @@ class ListingTagsController < ApplicationController
     respond_to do |format|
       if @listing_tag.save
         format.html { redirect_to listing_tag_url(@listing_tag), notice: "Listing tag was successfully created." }
-        format.json { render :show, status: :created, location: @listing_tag }
+        format.json { render json: @listing_tag, status: :created, location: @listing_tag }
       else
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @listing_tag.errors, status: :unprocessable_entity }
@@ -39,7 +42,7 @@ class ListingTagsController < ApplicationController
     respond_to do |format|
       if @listing_tag.update(listing_tag_params)
         format.html { redirect_to listing_tag_url(@listing_tag), notice: "Listing tag was successfully updated." }
-        format.json { render :show, status: :ok, location: @listing_tag }
+        format.json { render json: @listing_tag, status: :ok, location: @listing_tag }
       else
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @listing_tag.errors, status: :unprocessable_entity }
@@ -65,6 +68,6 @@ class ListingTagsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def listing_tag_params
-      params.fetch(:listing_tag, {})
+      params.require(:listing_tag).permit(:tag_id, :listing_id)
     end
 end

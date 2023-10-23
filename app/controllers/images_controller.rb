@@ -4,15 +4,18 @@ class ImagesController < ApplicationController
   # GET /images or /images.json
   def index
     @images = Image.all
+    render json: @images
   end
 
   # GET /images/1 or /images/1.json
   def show
+    render json: @image
   end
 
   # GET /images/new
   def new
     @image = Image.new
+    render json: @image
   end
 
   # GET /images/1/edit
@@ -26,7 +29,7 @@ class ImagesController < ApplicationController
     respond_to do |format|
       if @image.save
         format.html { redirect_to image_url(@image), notice: "Image was successfully created." }
-        format.json { render :show, status: :created, location: @image }
+        format.json { render json: @image, status: :created, location: @image }
       else
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @image.errors, status: :unprocessable_entity }
@@ -39,7 +42,7 @@ class ImagesController < ApplicationController
     respond_to do |format|
       if @image.update(image_params)
         format.html { redirect_to image_url(@image), notice: "Image was successfully updated." }
-        format.json { render :show, status: :ok, location: @image }
+        format.json { render json: @image, status: :ok, location: @image }
       else
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @image.errors, status: :unprocessable_entity }
@@ -65,6 +68,7 @@ class ImagesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def image_params
-      params.fetch(:image, {})
+      params.require(:image).permit(:link, :image, :video, :user_id, :store_id, :listing_id, :review_id)
+
     end
 end

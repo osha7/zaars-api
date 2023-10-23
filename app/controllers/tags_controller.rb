@@ -4,15 +4,18 @@ class TagsController < ApplicationController
   # GET /tags or /tags.json
   def index
     @tags = Tag.all
+    render json: @tags
   end
 
   # GET /tags/1 or /tags/1.json
   def show
+    render json: @tag
   end
 
   # GET /tags/new
   def new
     @tag = Tag.new
+    render json: @tag
   end
 
   # GET /tags/1/edit
@@ -26,7 +29,7 @@ class TagsController < ApplicationController
     respond_to do |format|
       if @tag.save
         format.html { redirect_to tag_url(@tag), notice: "Tag was successfully created." }
-        format.json { render :show, status: :created, location: @tag }
+        format.json { render json: @tag, status: :created, location: @tag }
       else
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @tag.errors, status: :unprocessable_entity }
@@ -39,7 +42,7 @@ class TagsController < ApplicationController
     respond_to do |format|
       if @tag.update(tag_params)
         format.html { redirect_to tag_url(@tag), notice: "Tag was successfully updated." }
-        format.json { render :show, status: :ok, location: @tag }
+        format.json { render json: @tag, status: :ok, location: @tag }
       else
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @tag.errors, status: :unprocessable_entity }
@@ -65,6 +68,6 @@ class TagsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def tag_params
-      params.fetch(:tag, {})
+      params.require(:tag).permit(:title)
     end
 end
