@@ -5,18 +5,16 @@ class UsersController < ApplicationController
   # GET /users or /users.json
   def index
     @users = User.all
+    render json: { users: @users }
   end
 
   # GET /users/new
   def new
     @user = User.new
+    render json: { user: @user }
   end
 
-  # def show
-  #     @user = User.find_by!(id: params.fetch(:id))
-  #     render json: @user
-  # end
-
+  #GET /users/1
   def show
     render json: { user: @user }
   end
@@ -44,6 +42,10 @@ class UsersController < ApplicationController
 
   # POST /users or /users.json
   def create
+    # this method IS NOT BEING USED - devise handles 'create'
+
+    # pp params
+    # pp "hitting this actionnnnnnnnnnnnnnn"
     @user = User.new(user_params)
 
     respond_to do |format|
@@ -142,12 +144,12 @@ class UsersController < ApplicationController
   # ---------^--STRIPE-^-----------------------------------
 
   private
+  def set_user
+    @user = User.find(params[:id])
+  end
 
   def user_params
     # Use callbacks to share common setup or constraints between actions.
-    def set_user
-      @user = User.find(params[:id])
-    end
 
     # Only allow a list of trusted parameters through.
     params.require(:user).permit(:email, :password, :username, :first_name, :last_name, :street_address, :street_address_2, :city, :state, :zip, :country, :phone_number, :facebook, :instagram, :twitter, :seller_account, :private)
