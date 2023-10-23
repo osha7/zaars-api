@@ -4,15 +4,18 @@ class ListingsController < ApplicationController
   # GET /listings or /listings.json
   def index
     @listings = Listing.all
+    render json: @listings
   end
 
   # GET /listings/1 or /listings/1.json
   def show
+    render json: @listing
   end
 
   # GET /listings/new
   def new
     @listing = Listing.new
+    render json: @listing
   end
 
   # GET /listings/1/edit
@@ -26,7 +29,7 @@ class ListingsController < ApplicationController
     respond_to do |format|
       if @listing.save
         format.html { redirect_to listing_url(@listing), notice: "Listing was successfully created." }
-        format.json { render :show, status: :created, location: @listing }
+        format.json { render json: @listing, status: :created, location: @listing }
       else
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @listing.errors, status: :unprocessable_entity }
@@ -39,7 +42,7 @@ class ListingsController < ApplicationController
     respond_to do |format|
       if @listing.update(listing_params)
         format.html { redirect_to listing_url(@listing), notice: "Listing was successfully updated." }
-        format.json { render :show, status: :ok, location: @listing }
+        format.json { render json: @listing, status: :ok, location: @listing }
       else
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @listing.errors, status: :unprocessable_entity }
@@ -65,6 +68,6 @@ class ListingsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def listing_params
-      params.fetch(:listing, {})
+      params.require(:listing).permit(:name, :size, :quantity, :price, :description, :condition, :gender, :material, :color, :brand, :tailoring_offered, :product_code, :weight, :weight_unit, :offers_accepted , :shipping_cost, :type_id, :order_id, :store_id, :buyer_id)
     end
 end
